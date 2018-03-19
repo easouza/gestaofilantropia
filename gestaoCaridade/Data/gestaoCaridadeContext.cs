@@ -35,5 +35,7 @@ namespace gestaoCaridade.Models
         public DbSet<gestaoCaridade.Models.VendaAlimento> VendaAlimento { get; set; }
 
         public DbSet<gestaoCaridade.Models.Vendedor> Vendedor { get; set; }
+
+        public DbSet<gestaoCaridade.Models.Ingresso> Ingresso { get; set; }
     }
 }

@@ -1,0 +1,45 @@
+﻿@model gestaoCaridade.Models.Ingresso
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Ingresso</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Valor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Valor)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DataVenda)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DataVenda)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EventoIngresso)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EventoIngresso.Nome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.VendedorResponsavel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VendedorResponsavel.Nome)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="IdIngresso" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
