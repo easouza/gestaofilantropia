@@ -11,14 +11,14 @@ using System;
 namespace gestaoCaridade.Migrations
 {
     [DbContext(typeof(gestaoCaridadeContext))]
-    [Migration("20180317123519_atualizacaomodelo")]
-    partial class atualizacaomodelo
+    [Migration("20180323205045_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
+                .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("gestaoCaridade.Models.Artesao", b =>
@@ -41,6 +41,24 @@ namespace gestaoCaridade.Migrations
                     b.HasKey("IdArtesao");
 
                     b.ToTable("Artesao");
+                });
+
+            modelBuilder.Entity("gestaoCaridade.Models.ArtesaoEvento", b =>
+                {
+                    b.Property<int>("IdArtesaoEvento")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("IdArtesao");
+
+                    b.Property<int>("IdEvento");
+
+                    b.HasKey("IdArtesaoEvento");
+
+                    b.HasIndex("IdArtesao");
+
+                    b.HasIndex("IdEvento");
+
+                    b.ToTable("ArtesaoEvento");
                 });
 
             modelBuilder.Entity("gestaoCaridade.Models.Beneficiado", b =>
@@ -81,6 +99,32 @@ namespace gestaoCaridade.Migrations
                     b.ToTable("Cliente");
                 });
 
+            modelBuilder.Entity("gestaoCaridade.Models.Doacao", b =>
+                {
+                    b.Property<int>("IdDoacao")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Data");
+
+                    b.Property<int>("IdDoador");
+
+                    b.Property<int>("IdEvento");
+
+                    b.Property<string>("Origem");
+
+                    b.Property<string>("Tipo");
+
+                    b.Property<double>("Valor");
+
+                    b.HasKey("IdDoacao");
+
+                    b.HasIndex("IdDoador");
+
+                    b.HasIndex("IdEvento");
+
+                    b.ToTable("Doacao");
+                });
+
             modelBuilder.Entity("gestaoCaridade.Models.Doador", b =>
                 {
                     b.Property<int>("IdDoador")
@@ -107,6 +151,8 @@ namespace gestaoCaridade.Migrations
 
                     b.Property<DateTime>("Data");
 
+                    b.Property<int>("IdResponsavel");
+
                     b.Property<string>("Local");
 
                     b.Property<string>("Nome")
@@ -116,7 +162,49 @@ namespace gestaoCaridade.Migrations
 
                     b.HasKey("IdEvento");
 
+                    b.HasIndex("IdResponsavel");
+
                     b.ToTable("Evento");
+                });
+
+            modelBuilder.Entity("gestaoCaridade.Models.EventoCliente", b =>
+                {
+                    b.Property<int>("IdEventoCliente")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("IdCliente");
+
+                    b.Property<int>("IdEvento");
+
+                    b.HasKey("IdEventoCliente");
+
+                    b.HasIndex("IdCliente");
+
+                    b.HasIndex("IdEvento");
+
+                    b.ToTable("EventoCliente");
+                });
+
+            modelBuilder.Entity("gestaoCaridade.Models.Ingresso", b =>
+                {
+                    b.Property<int>("IdIngresso")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DataVenda");
+
+                    b.Property<int>("IdEvento");
+
+                    b.Property<int>("IdVendedor");
+
+                    b.Property<double>("Valor");
+
+                    b.HasKey("IdIngresso");
+
+                    b.HasIndex("IdEvento");
+
+                    b.HasIndex("IdVendedor");
+
+                    b.ToTable("Ingresso");
                 });
 
             modelBuilder.Entity("gestaoCaridade.Models.Item", b =>
@@ -143,12 +231,16 @@ namespace gestaoCaridade.Migrations
 
                     b.Property<DateTime>("DataAquisicao");
 
+                    b.Property<int>("IdEvento");
+
                     b.Property<string>("Tipo")
                         .IsRequired();
 
                     b.Property<double>("Valor");
 
                     b.HasKey("IDMaterial");
+
+                    b.HasIndex("IdEvento");
 
                     b.ToTable("Material");
                 });
@@ -211,7 +303,7 @@ namespace gestaoCaridade.Migrations
                     b.Property<int>("IdVendedor")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("DataEntrada");
+                    b.Property<DateTime>("DataEntrada");
 
                     b.Property<string>("Endereco");
 
@@ -223,6 +315,74 @@ namespace gestaoCaridade.Migrations
                     b.HasKey("IdVendedor");
 
                     b.ToTable("Vendedor");
+                });
+
+            modelBuilder.Entity("gestaoCaridade.Models.ArtesaoEvento", b =>
+                {
+                    b.HasOne("gestaoCaridade.Models.Artesao", "ArtesaoSelecionado")
+                        .WithMany()
+                        .HasForeignKey("IdArtesao")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("gestaoCaridade.Models.Evento", "EventoVinculado")
+                        .WithMany()
+                        .HasForeignKey("IdEvento")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("gestaoCaridade.Models.Doacao", b =>
+                {
+                    b.HasOne("gestaoCaridade.Models.Doador", "DoadorSelecionado")
+                        .WithMany()
+                        .HasForeignKey("IdDoador")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("gestaoCaridade.Models.Evento", "EventoSelecionado")
+                        .WithMany()
+                        .HasForeignKey("IdEvento")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("gestaoCaridade.Models.Evento", b =>
+                {
+                    b.HasOne("gestaoCaridade.Models.Responsavel", "ResponsavelEvento")
+                        .WithMany()
+                        .HasForeignKey("IdResponsavel")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("gestaoCaridade.Models.EventoCliente", b =>
+                {
+                    b.HasOne("gestaoCaridade.Models.Cliente", "ClienteSelecionado")
+                        .WithMany()
+                        .HasForeignKey("IdCliente")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("gestaoCaridade.Models.Evento", "EventoSelecionado")
+                        .WithMany()
+                        .HasForeignKey("IdEvento")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("gestaoCaridade.Models.Ingresso", b =>
+                {
+                    b.HasOne("gestaoCaridade.Models.Evento", "EventoIngresso")
+                        .WithMany()
+                        .HasForeignKey("IdEvento")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("gestaoCaridade.Models.Vendedor", "VendedorResponsavel")
+                        .WithMany()
+                        .HasForeignKey("IdVendedor")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("gestaoCaridade.Models.Material", b =>
+                {
+                    b.HasOne("gestaoCaridade.Models.Evento", "EventoSelecionado")
+                        .WithMany()
+                        .HasForeignKey("IdEvento")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

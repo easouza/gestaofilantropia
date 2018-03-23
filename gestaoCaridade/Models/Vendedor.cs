@@ -13,7 +13,7 @@ namespace gestaoCaridade.Models
         [Required]
         public string Nome { get; set; }
         public string Endereco { get; set; }
-        public string DataEntrada { get; set; }
+        public DateTime DataEntrada { get; set; }
         public string Telefone { get; set; }
     }
 }

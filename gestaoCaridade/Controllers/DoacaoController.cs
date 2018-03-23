@@ -9,23 +9,23 @@ using gestaoCaridade.Models;
 
 namespace gestaoCaridade.Controllers
 {
-    public class MaterialController : Controller
+    public class DoacaoController : Controller
     {
         private readonly gestaoCaridadeContext _context;
 
-        public MaterialController(gestaoCaridadeContext context)
+        public DoacaoController(gestaoCaridadeContext context)
         {
             _context = context;
         }
 
-        // GET: Material
+        // GET: Doacao
         public async Task<IActionResult> Index()
         {
-            var gestaoCaridadeContext = _context.Material.Include(m => m.EventoSelecionado);
+            var gestaoCaridadeContext = _context.Doacao.Include(d => d.DoadorSelecionado).Include(d => d.EventoSelecionado);
             return View(await gestaoCaridadeContext.ToListAsync());
         }
 
-        // GET: Material/Details/5
+        // GET: Doacao/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,42 +33,45 @@ namespace gestaoCaridade.Controllers
                 return NotFound();
             }
 
-            var material = await _context.Material
-                .Include(m => m.EventoSelecionado)
-                .SingleOrDefaultAsync(m => m.IDMaterial == id);
-            if (material == null)
+            var doacao = await _context.Doacao
+                .Include(d => d.DoadorSelecionado)
+                .Include(d => d.EventoSelecionado)
+                .SingleOrDefaultAsync(m => m.IdDoacao == id);
+            if (doacao == null)
             {
                 return NotFound();
             }
 
-            return View(material);
+            return View(doacao);
         }
 
-        // GET: Material/Create
+        // GET: Doacao/Create
         public IActionResult Create()
         {
+            ViewData["IdDoador"] = new SelectList(_context.Doador, "IdDoador", "Nome");
             ViewData["IdEvento"] = new SelectList(_context.Evento, "IdEvento", "Nome");
             return View();
         }
 
-        // POST: Material/Create
+        // POST: Doacao/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IDMaterial,Tipo,Valor,DataAquisicao,IdEvento")] Material material)
+        public async Task<IActionResult> Create([Bind("IdDoacao,Valor,Data,Tipo,Origem,IdDoador,IdEvento")] Doacao doacao)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(material);
+                _context.Add(doacao);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdEvento"] = new SelectList(_context.Evento, "IdEvento", "Nome", material.IdEvento);
-            return View(material);
+            ViewData["IdDoador"] = new SelectList(_context.Doador, "IdDoador", "Nome", doacao.IdDoador);
+            ViewData["IdEvento"] = new SelectList(_context.Evento, "IdEvento", "Nome", doacao.IdEvento);
+            return View(doacao);
         }
 
-        // GET: Material/Edit/5
+        // GET: Doacao/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -76,23 +79,24 @@ namespace gestaoCaridade.Controllers
                 return NotFound();
             }
 
-            var material = await _context.Material.SingleOrDefaultAsync(m => m.IDMaterial == id);
-            if (material == null)
+            var doacao = await _context.Doacao.SingleOrDefaultAsync(m => m.IdDoacao == id);
+            if (doacao == null)
             {
                 return NotFound();
             }
-            ViewData["IdEvento"] = new SelectList(_context.Evento, "IdEvento", "Nome", material.IdEvento);
-            return View(material);
+            ViewData["IdDoador"] = new SelectList(_context.Doador, "IdDoador", "Nome", doacao.IdDoador);
+            ViewData["IdEvento"] = new SelectList(_context.Evento, "IdEvento", "Nome", doacao.IdEvento);
+            return View(doacao);
         }
 
-        // POST: Material/Edit/5
+        // POST: Doacao/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IDMaterial,Tipo,Valor,DataAquisicao,IdEvento")] Material material)
+        public async Task<IActionResult> Edit(int id, [Bind("IdDoacao,Valor,Data,Tipo,Origem,IdDoador,IdEvento")] Doacao doacao)
         {
-            if (id != material.IDMaterial)
+            if (id != doacao.IdDoacao)
             {
                 return NotFound();
             }
@@ -101,12 +105,12 @@ namespace gestaoCaridade.Controllers
             {
                 try
                 {
-                    _context.Update(material);
+                    _context.Update(doacao);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MaterialExists(material.IDMaterial))
+                    if (!DoacaoExists(doacao.IdDoacao))
                     {
                         return NotFound();
                     }
@@ -117,11 +121,12 @@ namespace gestaoCaridade.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdEvento"] = new SelectList(_context.Evento, "IdEvento", "Nome", material.IdEvento);
-            return View(material);
+            ViewData["IdDoador"] = new SelectList(_context.Doador, "IdDoador", "Nome", doacao.IdDoador);
+            ViewData["IdEvento"] = new SelectList(_context.Evento, "IdEvento", "Nome", doacao.IdEvento);
+            return View(doacao);
         }
 
-        // GET: Material/Delete/5
+        // GET: Doacao/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -129,31 +134,32 @@ namespace gestaoCaridade.Controllers
                 return NotFound();
             }
 
-            var material = await _context.Material
-                .Include(m => m.EventoSelecionado)
-                .SingleOrDefaultAsync(m => m.IDMaterial == id);
-            if (material == null)
+            var doacao = await _context.Doacao
+                .Include(d => d.DoadorSelecionado)
+                .Include(d => d.EventoSelecionado)
+                .SingleOrDefaultAsync(m => m.IdDoacao == id);
+            if (doacao == null)
             {
                 return NotFound();
             }
 
-            return View(material);
+            return View(doacao);
         }
 
-        // POST: Material/Delete/5
+        // POST: Doacao/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var material = await _context.Material.SingleOrDefaultAsync(m => m.IDMaterial == id);
-            _context.Material.Remove(material);
+            var doacao = await _context.Doacao.SingleOrDefaultAsync(m => m.IdDoacao == id);
+            _context.Doacao.Remove(doacao);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MaterialExists(int id)
+        private bool DoacaoExists(int id)
         {
-            return _context.Material.Any(e => e.IDMaterial == id);
+            return _context.Doacao.Any(e => e.IdDoacao == id);
         }
     }
 }

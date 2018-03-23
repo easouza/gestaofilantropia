@@ -21,6 +21,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.DataAquisicao)
                 </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventoSelecionado)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -35,6 +38,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DataAquisicao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventoSelecionado.Nome)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IDMaterial">Edit</a> |
