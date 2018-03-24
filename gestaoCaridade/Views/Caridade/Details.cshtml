@@ -1,0 +1,42 @@
+﻿@model gestaoCaridade.Models.Caridade
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Caridade</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Data)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Data)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Endereco)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Endereco)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BeneficiadoSelecionado)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BeneficiadoSelecionado.Nome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemSelecionado)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ItemSelecionado.Tipo)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.IdCaridade">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

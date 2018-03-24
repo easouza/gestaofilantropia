@@ -35,6 +35,12 @@
         <dd>
             @Html.DisplayFor(model => model.Data)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ResponsavelEvento)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ResponsavelEvento.Nome)
+        </dd>
     </dl>
     
     <form asp-action="Delete">

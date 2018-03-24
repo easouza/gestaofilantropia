@@ -18,11 +18,15 @@ namespace gestaoCaridade.Models
         public string Tipo { get; set; }
         public string Origem { get; set; }
         [ForeignKey("DoadorSelecionado")]
+        [Display(Name ="Doador")]
         public int IdDoador { get; set; }
+        [Display(Name ="Evento")]
         [ForeignKey("EventoSelecionado")]
         public int IdEvento { get; set; }
 
+        [Display(Name = "Doador")]
         public virtual Doador DoadorSelecionado { get; set; }
+        [Display(Name = "Evento")]
         public virtual Evento EventoSelecionado { get; set; }
     }
 }

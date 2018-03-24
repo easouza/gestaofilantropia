@@ -14,6 +14,7 @@ namespace gestaoCaridade.Models
         public string Tipo { get; set; }
         public double Valor { get; set; }
         [Required]
+        [Display(Name ="Data de Aquisição")]
         public DateTime DataAquisicao { get; set; }
     }
 }

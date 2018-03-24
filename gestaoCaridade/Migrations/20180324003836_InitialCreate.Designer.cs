@@ -11,7 +11,7 @@ using System;
 namespace gestaoCaridade.Migrations
 {
     [DbContext(typeof(gestaoCaridadeContext))]
-    [Migration("20180323205045_InitialCreate")]
+    [Migration("20180324003836_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

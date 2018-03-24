@@ -21,7 +21,8 @@ namespace gestaoCaridade.Controllers
         // GET: Evento
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Evento.ToListAsync());
+            var gestaoCaridadeContext = _context.Evento.Include(e => e.ResponsavelEvento);
+            return View(await gestaoCaridadeContext.ToListAsync());
         }
 
         // GET: Evento/Details/5
@@ -33,6 +34,7 @@ namespace gestaoCaridade.Controllers
             }
 
             var evento = await _context.Evento
+                .Include(e => e.ResponsavelEvento)
                 .SingleOrDefaultAsync(m => m.IdEvento == id);
             if (evento == null)
             {
@@ -45,6 +47,7 @@ namespace gestaoCaridade.Controllers
         // GET: Evento/Create
         public IActionResult Create()
         {
+            ViewData["IdResponsavel"] = new SelectList(_context.Responsavel, "IdResponsavel", "Nome");
             return View();
         }
 
@@ -53,7 +56,7 @@ namespace gestaoCaridade.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdEvento,Nome,Tipo,Local,Data")] Evento evento)
+        public async Task<IActionResult> Create([Bind("IdEvento,Nome,Tipo,Local,Data,IdResponsavel")] Evento evento)
         {
             if (ModelState.IsValid)
             {
@@ -61,6 +64,7 @@ namespace gestaoCaridade.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["IdResponsavel"] = new SelectList(_context.Responsavel, "IdResponsavel", "Nome", evento.IdResponsavel);
             return View(evento);
         }
 
@@ -77,6 +81,7 @@ namespace gestaoCaridade.Controllers
             {
                 return NotFound();
             }
+            ViewData["IdResponsavel"] = new SelectList(_context.Responsavel, "IdResponsavel", "Nome", evento.IdResponsavel);
             return View(evento);
         }
 
@@ -85,7 +90,7 @@ namespace gestaoCaridade.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdEvento,Nome,Tipo,Local,Data")] Evento evento)
+        public async Task<IActionResult> Edit(int id, [Bind("IdEvento,Nome,Tipo,Local,Data,IdResponsavel")] Evento evento)
         {
             if (id != evento.IdEvento)
             {
@@ -112,6 +117,7 @@ namespace gestaoCaridade.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["IdResponsavel"] = new SelectList(_context.Responsavel, "IdResponsavel", "Nome", evento.IdResponsavel);
             return View(evento);
         }
 
@@ -124,6 +130,7 @@ namespace gestaoCaridade.Controllers
             }
 
             var evento = await _context.Evento
+                .Include(e => e.ResponsavelEvento)
                 .SingleOrDefaultAsync(m => m.IdEvento == id);
             if (evento == null)
             {

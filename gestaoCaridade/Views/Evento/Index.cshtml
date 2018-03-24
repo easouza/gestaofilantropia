@@ -24,6 +24,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Data)
                 </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResponsavelEvento)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -41,6 +44,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Data)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResponsavelEvento.Nome)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdEvento">Edit</a> |

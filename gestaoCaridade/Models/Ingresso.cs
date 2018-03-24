@@ -13,15 +13,18 @@ namespace gestaoCaridade.Models
         public int IdIngresso { get; set; }
         [Required]
         public double Valor { get; set; }
+        [Display(Name = "Data da Venda")]
         public DateTime DataVenda { get; set; }
+        [Display(Name = "Vendedor")]
         [ForeignKey("VendedorResponsavel")]
         public int IdVendedor { get; set; }
-
+        [Display(Name = "Evento")]
         [ForeignKey("EventoIngresso")]
         public int IdEvento { get; set; }
 
+        [Display(Name = "Vendedor")]
         public virtual Vendedor VendedorResponsavel { get; set; }
-
+        [Display(Name = "Evento")]
         public virtual Evento EventoIngresso { get; set; }
     }
 }

@@ -43,5 +43,7 @@ namespace gestaoCaridade.Models
         public DbSet<gestaoCaridade.Models.ArtesaoEvento> ArtesaoEvento { get; set; }
 
         public DbSet<gestaoCaridade.Models.EventoCliente> EventoCliente { get; set; }
+
+        public DbSet<gestaoCaridade.Models.Caridade> Caridade { get; set; }
     }
 }

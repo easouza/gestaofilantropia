@@ -13,8 +13,11 @@ namespace gestaoCaridade.Models
         [Required]
         public string Nome { get; set; }
         public string Cargo { get; set; }
+        [Display(Name ="Data de entrada")]
         public DateTime DataEntrada { get; set; }
+        [Display(Name = "Data de nascimento")]
         public DateTime DataNascimento { get; set; }
+        [Display(Name = "Endereço")]
         public string Endereco { get; set; }
         public string Telefone { get; set; }
     }

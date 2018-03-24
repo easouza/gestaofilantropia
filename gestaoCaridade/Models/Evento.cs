@@ -17,10 +17,11 @@ namespace gestaoCaridade.Models
         public string Local { get; set; }
         [Required]
         public DateTime Data { get; set; }
-
         [ForeignKey("ResponsavelEvento")]
+        [Display(Name ="Responsável")]
         public int IdResponsavel { get; set; }
 
+        [Display(Name = "Responsável")]
         public virtual Responsavel ResponsavelEvento { get; set; }
     }
 }

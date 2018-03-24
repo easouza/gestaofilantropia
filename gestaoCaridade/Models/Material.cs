@@ -15,10 +15,13 @@ namespace gestaoCaridade.Models
         public string Tipo { get; set; }
         [Required]
         public double Valor { get; set; }
+        [Display(Name ="Data de Aquisição")]
         public DateTime DataAquisicao { get; set; }
         [ForeignKey("EventoSelecionado")]
+        [Display(Name ="Evento")]
         public int IdEvento { get; set; }
 
+        [Display(Name = "Evento")]
         public virtual Evento EventoSelecionado { get; set; }
     }
 }

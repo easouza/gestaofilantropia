@@ -12,6 +12,7 @@ namespace gestaoCaridade.Models
         public int IdReceitaArtesao { get; set; }
         [Required]
         public double Valor { get; set; }
+        [Display(Name ="Comissão")]
         public double Comissao { get; set; }
     }
 }

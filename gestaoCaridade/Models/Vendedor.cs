@@ -12,7 +12,9 @@ namespace gestaoCaridade.Models
         public int IdVendedor { get; set; }
         [Required]
         public string Nome { get; set; }
+        [Display(Name = "Endereço")]
         public string Endereco { get; set; }
+        [Display(Name = "Data de Entrada")]
         public DateTime DataEntrada { get; set; }
         public string Telefone { get; set; }
     }

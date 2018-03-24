@@ -13,8 +13,12 @@ namespace gestaoCaridade.Models
         [Required]
         public string Nome { get; set; }
         [Required]
+        [Display(Name ="Profissão")]
         public string Profissao { get; set; }
+        [Display(Name ="Endereço")]
         public string Endereco { get; set; }
+        [Display(Name ="Data de nascimento")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true,ConvertEmptyStringToNull = true)]
         public DateTime DataNascimento { get; set; }
         public string Telefone { get; set; }
     }

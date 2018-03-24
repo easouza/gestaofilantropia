@@ -12,7 +12,9 @@ namespace gestaoCaridade.Models
         public int IdDoador { get; set; }
         [Required]
         public string Nome { get; set; }
+        [Display(Name ="Endereço")]
         public string Endereco { get; set; }
+        [Display(Name ="Data de entrada")]
         public string DataEntrada { get; set; }
         public string Telefone { get; set; }
     }

@@ -12,8 +12,10 @@ namespace gestaoCaridade.Models
         public int IDBeneficiado { get; set; }
         [Required]
         public string Nome { get; set; }
+        [Display(Name ="Endereço")]
         public string Endereco { get; set; }
         public string Telefone { get; set; }
+        [Display(Name ="Data de nascimento")]
         public DateTime DataNascimento { get; set; }
     }
 }
