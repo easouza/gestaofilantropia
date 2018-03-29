@@ -19,10 +19,18 @@ namespace gestaoCaridade.Controllers
         }
 
         // GET: Evento
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string nome)
         {
             var gestaoCaridadeContext = _context.Evento.Include(e => e.ResponsavelEvento);
-            return View(await gestaoCaridadeContext.ToListAsync());
+
+            var eventos = from m in _context.Evento.Include(e => e.ResponsavelEvento) select m;
+
+            if (!string.IsNullOrEmpty(nome))
+            {
+                eventos = eventos.Where(s => s.Nome.Contains(nome));
+            }
+
+            return View(await eventos.ToListAsync());
         }
 
         // GET: Evento/Details/5

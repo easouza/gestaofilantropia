@@ -9,6 +9,12 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-controller="Evento" asp-action="Index" method="get">
+    <p>
+        Nome: <input type="text" name="nome">
+        <input type="submit" value="Filtrar" />
+    </p>
+</form>
 <table class="table">
     <thead>
         <tr>
