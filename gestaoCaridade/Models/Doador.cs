@@ -14,7 +14,8 @@ namespace gestaoCaridade.Models
         public string Nome { get; set; }
         [Display(Name ="Endereço")]
         public string Endereco { get; set; }
-        [Display(Name ="Data de entrada")]
+        public string Indicacao { get; set; }
+        [Display(Name ="Data de Cadastro")]
         public string DataEntrada { get; set; }
         public string Telefone { get; set; }
     }

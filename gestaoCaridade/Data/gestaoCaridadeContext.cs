@@ -30,7 +30,7 @@ namespace gestaoCaridade.Models
 
         public DbSet<gestaoCaridade.Models.ReceitaArtesao> ReceitaArtesao { get; set; }
 
-        public DbSet<gestaoCaridade.Models.Responsavel> Responsavel { get; set; }
+        public DbSet<gestaoCaridade.Models.Membro> Responsavel { get; set; }
 
         public DbSet<gestaoCaridade.Models.VendaAlimento> VendaAlimento { get; set; }
 

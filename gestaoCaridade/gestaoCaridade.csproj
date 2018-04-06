@@ -5,32 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Views\Evento\**" />
     <Compile Remove="Views\Ingressos\**" />
-    <Content Remove="Views\Evento\**" />
     <Content Remove="Views\Ingressos\**" />
-    <EmbeddedResource Remove="Views\Evento\**" />
     <EmbeddedResource Remove="Views\Ingressos\**" />
-    <None Remove="Views\Evento\**" />
     <None Remove="Views\Ingressos\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Views\Evento\Create.cshtml" />
-    <None Include="Views\Evento\Delete.cshtml" />
-    <None Include="Views\Evento\Details.cshtml" />
-    <None Include="Views\Evento\Edit.cshtml" />
-    <None Include="Views\Evento\Index.cshtml" />
   </ItemGroup>
 
 </Project>

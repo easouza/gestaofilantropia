@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using gestaoCaridade.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace gestaoCaridade
 {
@@ -27,6 +28,9 @@ namespace gestaoCaridade
 
             services.AddDbContext<gestaoCaridadeContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("gestaoCaridadeContext")));
+            services.AddIdentity<Membro, IdentityRole>()
+            .AddEntityFrameworkStores<gestaoCaridadeContext>()
+            .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +47,8 @@ namespace gestaoCaridade
             }
 
             app.UseStaticFiles();
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

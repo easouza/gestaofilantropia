@@ -9,31 +9,22 @@ using gestaoCaridade.Models;
 
 namespace gestaoCaridade.Controllers
 {
-    public class EventoController : Controller
+    public class MembroController : Controller
     {
         private readonly gestaoCaridadeContext _context;
 
-        public EventoController(gestaoCaridadeContext context)
+        public MembroController(gestaoCaridadeContext context)
         {
             _context = context;
         }
 
-        // GET: Evento
-        public async Task<IActionResult> Index(string nome)
+        // GET: Membro
+        public async Task<IActionResult> Index()
         {
-            var gestaoCaridadeContext = _context.Evento.Include(e => e.ResponsavelEvento);
-
-            var eventos = from m in _context.Evento.Include(e => e.ResponsavelEvento) select m;
-
-            if (!string.IsNullOrEmpty(nome))
-            {
-                eventos = eventos.Where(s => s.Nome.Contains(nome));
-            }
-
-            return View(await eventos.ToListAsync());
+            return View(await _context.Responsavel.ToListAsync());
         }
 
-        // GET: Evento/Details/5
+        // GET: Membro/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -41,42 +32,39 @@ namespace gestaoCaridade.Controllers
                 return NotFound();
             }
 
-            var evento = await _context.Evento
-                .Include(e => e.ResponsavelEvento)
-                .SingleOrDefaultAsync(m => m.IdEvento == id);
-            if (evento == null)
+            var membro = await _context.Responsavel
+                .SingleOrDefaultAsync(m => m.IdMembro == id);
+            if (membro == null)
             {
                 return NotFound();
             }
 
-            return View(evento);
+            return View(membro);
         }
 
-        // GET: Evento/Create
+        // GET: Membro/Create
         public IActionResult Create()
         {
-            ViewData["IdResponsavel"] = new SelectList(_context.Responsavel, "IdResponsavel", "Nome");
             return View();
         }
 
-        // POST: Evento/Create
+        // POST: Membro/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdEvento,Nome,Tipo,Local,Data,IdResponsavel")] Evento evento)
+        public async Task<IActionResult> Create([Bind("IdMembro,Nome,Cargo,DataEntrada,DataNascimento,Endereco,Telefone,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] Membro membro)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(evento);
+                _context.Add(membro);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdResponsavel"] = new SelectList(_context.Responsavel, "IdResponsavel", "Nome", evento.IdResponsavel);
-            return View(evento);
+            return View(membro);
         }
 
-        // GET: Evento/Edit/5
+        // GET: Membro/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,23 +72,22 @@ namespace gestaoCaridade.Controllers
                 return NotFound();
             }
 
-            var evento = await _context.Evento.SingleOrDefaultAsync(m => m.IdEvento == id);
-            if (evento == null)
+            var membro = await _context.Responsavel.SingleOrDefaultAsync(m => m.IdMembro == id);
+            if (membro == null)
             {
                 return NotFound();
             }
-            ViewData["IdResponsavel"] = new SelectList(_context.Responsavel, "IdResponsavel", "Nome", evento.IdResponsavel);
-            return View(evento);
+            return View(membro);
         }
 
-        // POST: Evento/Edit/5
+        // POST: Membro/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdEvento,Nome,Tipo,Local,Data,IdResponsavel")] Evento evento)
+        public async Task<IActionResult> Edit(int id, [Bind("IdMembro,Nome,Cargo,DataEntrada,DataNascimento,Endereco,Telefone,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] Membro membro)
         {
-            if (id != evento.IdEvento)
+            if (id != membro.IdMembro)
             {
                 return NotFound();
             }
@@ -109,12 +96,12 @@ namespace gestaoCaridade.Controllers
             {
                 try
                 {
-                    _context.Update(evento);
+                    _context.Update(membro);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EventoExists(evento.IdEvento))
+                    if (!MembroExists(membro.IdMembro))
                     {
                         return NotFound();
                     }
@@ -125,11 +112,10 @@ namespace gestaoCaridade.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdResponsavel"] = new SelectList(_context.Responsavel, "IdResponsavel", "Nome", evento.IdResponsavel);
-            return View(evento);
+            return View(membro);
         }
 
-        // GET: Evento/Delete/5
+        // GET: Membro/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,31 +123,30 @@ namespace gestaoCaridade.Controllers
                 return NotFound();
             }
 
-            var evento = await _context.Evento
-                .Include(e => e.ResponsavelEvento)
-                .SingleOrDefaultAsync(m => m.IdEvento == id);
-            if (evento == null)
+            var membro = await _context.Responsavel
+                .SingleOrDefaultAsync(m => m.IdMembro == id);
+            if (membro == null)
             {
                 return NotFound();
             }
 
-            return View(evento);
+            return View(membro);
         }
 
-        // POST: Evento/Delete/5
+        // POST: Membro/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var evento = await _context.Evento.SingleOrDefaultAsync(m => m.IdEvento == id);
-            _context.Evento.Remove(evento);
+            var membro = await _context.Responsavel.SingleOrDefaultAsync(m => m.IdMembro == id);
+            _context.Responsavel.Remove(membro);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EventoExists(int id)
+        private bool MembroExists(int id)
         {
-            return _context.Evento.Any(e => e.IdEvento == id);
+            return _context.Responsavel.Any(e => e.IdMembro == id);
         }
     }
 }
