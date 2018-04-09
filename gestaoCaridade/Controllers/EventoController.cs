@@ -11,23 +11,23 @@ using Microsoft.AspNetCore.Authorization;
 namespace gestaoCaridade.Controllers
 {
     [Authorize]
-    public class IngressoController : Controller
+    public class EventoController : Controller
     {
         private readonly gestaoCaridadeContext _context;
 
-        public IngressoController(gestaoCaridadeContext context)
+        public EventoController(gestaoCaridadeContext context)
         {
             _context = context;
         }
 
-        // GET: Ingresso
+        // GET: Evento
         public async Task<IActionResult> Index()
         {
-            var gestaoCaridadeContext = _context.Ingresso.Include(i => i.EventoIngresso).Include(i => i.VendedorResponsavel);
+            var gestaoCaridadeContext = _context.Evento.Include(e => e.MembroEvento);
             return View(await gestaoCaridadeContext.ToListAsync());
         }
 
-        // GET: Ingresso/Details/5
+        // GET: Evento/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,45 +35,42 @@ namespace gestaoCaridade.Controllers
                 return NotFound();
             }
 
-            var ingresso = await _context.Ingresso
-                .Include(i => i.EventoIngresso)
-                .Include(i => i.VendedorResponsavel)
-                .SingleOrDefaultAsync(m => m.IdIngresso == id);
-            if (ingresso == null)
+            var evento = await _context.Evento
+                .Include(e => e.MembroEvento)
+                .SingleOrDefaultAsync(m => m.IdEvento == id);
+            if (evento == null)
             {
                 return NotFound();
             }
 
-            return View(ingresso);
+            return View(evento);
         }
 
-        // GET: Ingresso/Create
+        // GET: Evento/Create
         public IActionResult Create()
         {
-            ViewData["IdEvento"] = new SelectList(_context.Evento, "IdEvento", "Nome");
-            ViewData["IdVendedor"] = new SelectList(_context.Vendedor, "IdVendedor", "Nome");
+            ViewData["IdMembro"] = new SelectList(_context.Responsavel, "IdMembro", "Nome");
             return View();
         }
 
-        // POST: Ingresso/Create
+        // POST: Evento/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdIngresso,Valor,DataVenda,IdVendedor,IdEvento")] Ingresso ingresso)
+        public async Task<IActionResult> Create([Bind("IdEvento,Nome,Tipo,Local,Data,IdMembro")] Evento evento)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(ingresso);
+                _context.Add(evento);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdEvento"] = new SelectList(_context.Evento, "IdEvento", "Nome", ingresso.IdEvento);
-            ViewData["IdVendedor"] = new SelectList(_context.Vendedor, "IdVendedor", "Nome", ingresso.IdVendedor);
-            return View(ingresso);
+            ViewData["IdMembro"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.IdMembro);
+            return View(evento);
         }
 
-        // GET: Ingresso/Edit/5
+        // GET: Evento/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,24 +78,23 @@ namespace gestaoCaridade.Controllers
                 return NotFound();
             }
 
-            var ingresso = await _context.Ingresso.SingleOrDefaultAsync(m => m.IdIngresso == id);
-            if (ingresso == null)
+            var evento = await _context.Evento.SingleOrDefaultAsync(m => m.IdEvento == id);
+            if (evento == null)
             {
                 return NotFound();
             }
-            ViewData["IdEvento"] = new SelectList(_context.Evento, "IdEvento", "Nome", ingresso.IdEvento);
-            ViewData["IdVendedor"] = new SelectList(_context.Vendedor, "IdVendedor", "Nome", ingresso.IdVendedor);
-            return View(ingresso);
+            ViewData["IdMembro"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.IdMembro);
+            return View(evento);
         }
 
-        // POST: Ingresso/Edit/5
+        // POST: Evento/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdIngresso,Valor,DataVenda,IdVendedor,IdEvento")] Ingresso ingresso)
+        public async Task<IActionResult> Edit(int id, [Bind("IdEvento,Nome,Tipo,Local,Data,IdMembro")] Evento evento)
         {
-            if (id != ingresso.IdIngresso)
+            if (id != evento.IdEvento)
             {
                 return NotFound();
             }
@@ -107,12 +103,12 @@ namespace gestaoCaridade.Controllers
             {
                 try
                 {
-                    _context.Update(ingresso);
+                    _context.Update(evento);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!IngressoExists(ingresso.IdIngresso))
+                    if (!EventoExists(evento.IdEvento))
                     {
                         return NotFound();
                     }
@@ -123,12 +119,11 @@ namespace gestaoCaridade.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdEvento"] = new SelectList(_context.Evento, "IdEvento", "Nome", ingresso.IdEvento);
-            ViewData["IdVendedor"] = new SelectList(_context.Vendedor, "IdVendedor", "Nome", ingresso.IdVendedor);
-            return View(ingresso);
+            ViewData["IdMembro"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.IdMembro);
+            return View(evento);
         }
 
-        // GET: Ingresso/Delete/5
+        // GET: Evento/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -136,32 +131,31 @@ namespace gestaoCaridade.Controllers
                 return NotFound();
             }
 
-            var ingresso = await _context.Ingresso
-                .Include(i => i.EventoIngresso)
-                .Include(i => i.VendedorResponsavel)
-                .SingleOrDefaultAsync(m => m.IdIngresso == id);
-            if (ingresso == null)
+            var evento = await _context.Evento
+                .Include(e => e.MembroEvento)
+                .SingleOrDefaultAsync(m => m.IdEvento == id);
+            if (evento == null)
             {
                 return NotFound();
             }
 
-            return View(ingresso);
+            return View(evento);
         }
 
-        // POST: Ingresso/Delete/5
+        // POST: Evento/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var ingresso = await _context.Ingresso.SingleOrDefaultAsync(m => m.IdIngresso == id);
-            _context.Ingresso.Remove(ingresso);
+            var evento = await _context.Evento.SingleOrDefaultAsync(m => m.IdEvento == id);
+            _context.Evento.Remove(evento);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool IngressoExists(int id)
+        private bool EventoExists(int id)
         {
-            return _context.Ingresso.Any(e => e.IdIngresso == id);
+            return _context.Evento.Any(e => e.IdEvento == id);
         }
     }
 }

@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using gestaoCaridade.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace gestaoCaridade.Controllers
 {
+    [Authorize]
     public class MembroController : Controller
     {
         private readonly gestaoCaridadeContext _context;

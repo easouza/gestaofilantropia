@@ -1,6 +1,11 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    @using Microsoft.AspNetCore.Identity
+    @using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+
+    @inject SignInManager<IdentityUser> SignInManager
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gestão de Caridade</title>
@@ -29,21 +34,34 @@
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Gestão de Caridade</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Membro" asp-action="">Membro</a></li>
-                    <li><a asp-area="" asp-controller="Evento" asp-action="">Evento</a></li>
-                    <li><a asp-area="" asp-controller="Vendedor" asp-action="">Vendedor</a></li>
-                    <li><a asp-area="" asp-controller="Ingresso" asp-action="">Ingresso</a></li>
-                    <li><a asp-area="" asp-controller="Doador" asp-action="">Doador</a></li>
-                    <li><a asp-area="" asp-controller="Doacao" asp-action="">Doação</a></li>
-                    <li><a asp-area="" asp-controller="Artesao" asp-action="">Artesão</a></li>
-                    <li><a asp-area="" asp-controller="Material" asp-action="">Material</a></li>
-                    <li><a asp-area="" asp-controller="Item" asp-action="">Item</a></li>
-                    <li><a asp-area="" asp-controller="Beneficiado" asp-action="">Beneficiado</a></li>
-                    <li><a asp-area="" asp-controller="Caridade" asp-action="">Caridade</a></li>
-
-                </ul>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    @*<ul class="nav navbar-nav navbar-right">
+                        <li><a asp-area="" asp-controller="Account" asp-action="Logout">Log off</a></li>
+                    </ul>*@
+                    <ul class="nav navbar-nav">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-area="" asp-controller="Membro" asp-action="">Membro</a></li>
+                        <li><a asp-area="" asp-controller="Evento" asp-action="">Evento</a></li>
+                        <li><a asp-area="" asp-controller="Vendedor" asp-action="">Vendedor</a></li>
+                        <li><a asp-area="" asp-controller="Ingresso" asp-action="">Ingresso</a></li>
+                        <li><a asp-area="" asp-controller="Doador" asp-action="">Doador</a></li>
+                        <li><a asp-area="" asp-controller="Doacao" asp-action="">Doação</a></li>
+                        <li><a asp-area="" asp-controller="Artesao" asp-action="">Artesão</a></li>
+                        <li><a asp-area="" asp-controller="Material" asp-action="">Material</a></li>
+                        <li><a asp-area="" asp-controller="Item" asp-action="">Item</a></li>
+                        @*<li><a asp-area="" asp-controller="Beneficiado" asp-action="">Beneficiado</a></li>
+        <li><a asp-area="" asp-controller="Caridade" asp-action="">Caridade</a></li>*@
+                        <li><a asp-area="" asp-controller="Account" asp-action="Logout">Log off</a></li>
+                    </ul>
+                }
+                else
+                {
+                    <ul class="nav navbar-nav">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a id="loginLink" asp-controller="Account" asp-action="Login">Log in</a></li>
+                    </ul>
+                }
             </div>
         </div>
     </nav>

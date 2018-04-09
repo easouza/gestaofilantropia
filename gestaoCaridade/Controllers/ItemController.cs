@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using gestaoCaridade.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace gestaoCaridade.Controllers
 {
+    [Authorize]
     public class ItemController : Controller
     {
         private readonly gestaoCaridadeContext _context;

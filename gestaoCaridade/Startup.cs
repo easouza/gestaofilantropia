@@ -40,14 +40,6 @@ namespace gestaoCaridade
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequiredUniqueChars = 1;
-
-                //// Lockout settings
-                //options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
-                //options.Lockout.MaxFailedAccessAttempts = 10;
-                //options.Lockout.AllowedForNewUsers = true;
-
-                //// User settings
-                //options.User.RequireUniqueEmail = true;
             });
         }
 
@@ -65,7 +57,6 @@ namespace gestaoCaridade
             }
 
             app.UseStaticFiles();
-
             app.UseAuthentication();
 
             app.UseMvc(routes =>
