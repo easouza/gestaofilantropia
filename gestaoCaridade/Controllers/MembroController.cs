@@ -6,16 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using gestaoCaridade.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace gestaoCaridade.Controllers
 {
     public class MembroController : Controller
     {
         private readonly gestaoCaridadeContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public MembroController(gestaoCaridadeContext context)
+        public MembroController(gestaoCaridadeContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Membro
@@ -53,12 +56,14 @@ namespace gestaoCaridade.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdMembro,Nome,Cargo,DataEntrada,DataNascimento,Endereco,Telefone,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] Membro membro)
+        public async Task<IActionResult> Create([Bind("IdMembro,Nome,UserName,Cargo,DataEntrada,DataNascimento,Endereco,Telefone,Password")] Membro membro)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(membro);
                 await _context.SaveChangesAsync();
+                var user = new IdentityUser() { UserName = membro.UserName };
+                var result = await _userManager.CreateAsync(user, membro.Password);
                 return RedirectToAction(nameof(Index));
             }
             return View(membro);
@@ -85,7 +90,7 @@ namespace gestaoCaridade.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdMembro,Nome,Cargo,DataEntrada,DataNascimento,Endereco,Telefone,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] Membro membro)
+        public async Task<IActionResult> Edit(int id, [Bind("IdMembro,Nome,Cargo,DataEntrada,DataNascimento,Endereco,Telefone,Password")] Membro membro)
         {
             if (id != membro.IdMembro)
             {

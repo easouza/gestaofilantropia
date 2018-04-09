@@ -28,9 +28,8 @@ namespace gestaoCaridade
 
             services.AddDbContext<gestaoCaridadeContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("gestaoCaridadeContext")));
-            services.AddIdentity<Membro, IdentityRole>()
-            .AddEntityFrameworkStores<gestaoCaridadeContext>()
-            .AddDefaultTokenProviders();
+            services.AddIdentity<IdentityUser, IdentityRole>()
+            .AddEntityFrameworkStores<gestaoCaridadeContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

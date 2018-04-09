@@ -11,9 +11,10 @@ using System;
 namespace gestaoCaridade.Migrations
 {
     [DbContext(typeof(gestaoCaridadeContext))]
-    partial class gestaoCaridadeContextModelSnapshot : ModelSnapshot
+    [Migration("20180409175600_identity2")]
+    partial class identity2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -287,12 +288,7 @@ namespace gestaoCaridade.Migrations
                     b.Property<string>("Password")
                         .IsRequired();
 
-                    b.Property<string>("ReturnUrl");
-
                     b.Property<string>("Telefone");
-
-                    b.Property<string>("UserName")
-                        .IsRequired();
 
                     b.HasKey("IdMembro");
 

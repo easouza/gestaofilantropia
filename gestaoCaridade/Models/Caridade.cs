@@ -12,6 +12,7 @@ namespace gestaoCaridade.Models
         [Key]
         public int IdCaridade { get; set; }
         [Required]
+        [DataType(DataType.Date)]
         public DateTime Data { get; set; }
         [Display(Name ="Endereço")]
         public string Endereco { get; set; }

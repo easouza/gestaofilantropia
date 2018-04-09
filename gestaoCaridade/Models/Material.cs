@@ -15,6 +15,7 @@ namespace gestaoCaridade.Models
         public string Tipo { get; set; }
         [Required]
         public double Valor { get; set; }
+        [DataType(DataType.Date)]
         [Display(Name ="Data de Aquisição")]
         public DateTime DataAquisicao { get; set; }
         [ForeignKey("EventoSelecionado")]

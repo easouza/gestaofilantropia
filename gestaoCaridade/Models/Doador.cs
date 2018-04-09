@@ -16,6 +16,7 @@ namespace gestaoCaridade.Models
         public string Endereco { get; set; }
         public string Indicacao { get; set; }
         [Display(Name ="Data de Cadastro")]
+        [DataType(DataType.Date)]
         public string DataEntrada { get; set; }
         public string Telefone { get; set; }
     }

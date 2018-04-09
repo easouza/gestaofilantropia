@@ -14,6 +14,7 @@ namespace gestaoCaridade.Models
         [Required]
         public double Valor { get; set; }
         [Required]
+        [DataType(DataType.Date)]
         public DateTime Data { get; set; }
         public string Tipo { get; set; }
         public string Origem { get; set; }

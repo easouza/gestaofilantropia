@@ -14,6 +14,7 @@ namespace gestaoCaridade.Models
         public string Nome { get; set; }
         [Display(Name = "Endereço")]
         public string Endereco { get; set; }
+        [DataType(DataType.Date)]
         [Display(Name = "Data de Entrada")]
         public DateTime DataEntrada { get; set; }
         public string Telefone { get; set; }

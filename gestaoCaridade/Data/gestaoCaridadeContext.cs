@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using gestaoCaridade.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace gestaoCaridade.Models
 {
-    public class gestaoCaridadeContext : DbContext
+    public class gestaoCaridadeContext : IdentityDbContext<IdentityUser>
     {
         public gestaoCaridadeContext (DbContextOptions<gestaoCaridadeContext> options)
             : base(options)

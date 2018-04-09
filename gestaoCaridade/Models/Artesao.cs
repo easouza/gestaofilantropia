@@ -17,8 +17,8 @@ namespace gestaoCaridade.Models
         public string Profissao { get; set; }
         [Display(Name ="Endereço")]
         public string Endereco { get; set; }
+        [DataType(DataType.Date)]
         [Display(Name ="Data de nascimento")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true,ConvertEmptyStringToNull = true)]
         public DateTime DataNascimento { get; set; }
         public string Telefone { get; set; }
     }

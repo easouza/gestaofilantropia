@@ -16,6 +16,7 @@ namespace gestaoCaridade.Models
         public string Tipo { get; set; }
         public string Local { get; set; }
         [Required]
+        [DataType(DataType.Date)]
         public DateTime Data { get; set; }
         [ForeignKey("MembroEvento")]
         [Display(Name ="Membro")]
