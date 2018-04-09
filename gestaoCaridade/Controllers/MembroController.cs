@@ -60,11 +60,13 @@ namespace gestaoCaridade.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(membro);
-                await _context.SaveChangesAsync();
                 var user = new IdentityUser() { UserName = membro.UserName };
                 var result = await _userManager.CreateAsync(user, membro.Password);
-                return RedirectToAction(nameof(Index));
+                if (result.Succeeded)
+                {
+                    _context.Add(membro);
+                    await _context.SaveChangesAsync();
+                }
             }
             return View(membro);
         }

@@ -29,6 +29,7 @@ namespace gestaoCaridade.Models
         [Required]
         [Display(Name ="Senha")]
         [DataType(DataType.Password)]
+        [MinLength(8)]
         public String Password { get; set; }
         [HiddenInput(DisplayValue = false)]
         public string ReturnUrl { get; set; }
