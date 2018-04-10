@@ -15,6 +15,7 @@ namespace gestaoCaridade.Models
         [Required]
         public string Nome { get; set; }
         [Required]
+        [Display(Name ="Usuário")]
         public string UserName { get; set; }
         public string Cargo { get; set; }
         [Display(Name ="Data de entrada")]
