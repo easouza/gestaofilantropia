@@ -12,8 +12,10 @@ namespace gestaoCaridade.Models
         public int IdDocumento { get; set; }
         public string Nome { get; set; }
         [Display(Name = "Data de Inserção")]
+        [DataType(DataType.Date)]
         public DateTime DataInsercao { get; set; }
         [Display(Name = "Data de Atualização")]
+        [DataType(DataType.Date)]
         public DateTime DataAtualizacao { get; set; }
     }
 }

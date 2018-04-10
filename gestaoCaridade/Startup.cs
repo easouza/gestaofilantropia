@@ -57,6 +57,7 @@ namespace gestaoCaridade
             }
 
             app.UseStaticFiles();
+
             app.UseAuthentication();
 
             app.UseMvc(routes =>

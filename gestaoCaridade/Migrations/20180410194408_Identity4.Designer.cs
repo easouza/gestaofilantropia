@@ -11,9 +11,10 @@ using System;
 namespace gestaoCaridade.Migrations
 {
     [DbContext(typeof(gestaoCaridadeContext))]
-    partial class gestaoCaridadeContextModelSnapshot : ModelSnapshot
+    [Migration("20180410194408_Identity4")]
+    partial class Identity4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,22 +100,6 @@ namespace gestaoCaridade.Migrations
                     b.HasIndex("IdItem");
 
                     b.ToTable("Caridade");
-                });
-
-            modelBuilder.Entity("gestaoCaridade.Models.ChecklistEvento", b =>
-                {
-                    b.Property<int>("IDChecklist")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("IDEvento");
-
-                    b.Property<bool>("ReservaLocal");
-
-                    b.HasKey("IDChecklist");
-
-                    b.HasIndex("IDEvento");
-
-                    b.ToTable("ChecklistEvento");
                 });
 
             modelBuilder.Entity("gestaoCaridade.Models.Cliente", b =>
@@ -562,14 +547,6 @@ namespace gestaoCaridade.Migrations
                     b.HasOne("gestaoCaridade.Models.Item", "ItemSelecionado")
                         .WithMany()
                         .HasForeignKey("IdItem")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("gestaoCaridade.Models.ChecklistEvento", b =>
-                {
-                    b.HasOne("gestaoCaridade.Models.Evento", "EventoVinculado")
-                        .WithMany()
-                        .HasForeignKey("IDEvento")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
