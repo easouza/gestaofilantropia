@@ -11,8 +11,8 @@ using System;
 namespace gestaoCaridade.Migrations
 {
     [DbContext(typeof(gestaoCaridadeContext))]
-    [Migration("20180409183829_identity3")]
-    partial class identity3
+    [Migration("20180509185304_inicial")]
+    partial class inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -102,6 +102,22 @@ namespace gestaoCaridade.Migrations
                     b.ToTable("Caridade");
                 });
 
+            modelBuilder.Entity("gestaoCaridade.Models.ChecklistEvento", b =>
+                {
+                    b.Property<int>("IDChecklist")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("IDEvento");
+
+                    b.Property<bool>("ReservaLocal");
+
+                    b.HasKey("IDChecklist");
+
+                    b.HasIndex("IDEvento");
+
+                    b.ToTable("ChecklistEvento");
+                });
+
             modelBuilder.Entity("gestaoCaridade.Models.Cliente", b =>
                 {
                     b.Property<int>("IdCliente")
@@ -166,6 +182,22 @@ namespace gestaoCaridade.Migrations
                     b.HasKey("IdDoador");
 
                     b.ToTable("Doador");
+                });
+
+            modelBuilder.Entity("gestaoCaridade.Models.Documento", b =>
+                {
+                    b.Property<int>("IdDocumento")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DataAtualizacao");
+
+                    b.Property<DateTime>("DataInsercao");
+
+                    b.Property<string>("Nome");
+
+                    b.HasKey("IdDocumento");
+
+                    b.ToTable("Documento");
                 });
 
             modelBuilder.Entity("gestaoCaridade.Models.Evento", b =>
@@ -531,6 +563,14 @@ namespace gestaoCaridade.Migrations
                     b.HasOne("gestaoCaridade.Models.Item", "ItemSelecionado")
                         .WithMany()
                         .HasForeignKey("IdItem")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("gestaoCaridade.Models.ChecklistEvento", b =>
+                {
+                    b.HasOne("gestaoCaridade.Models.Evento", "EventoVinculado")
+                        .WithMany()
+                        .HasForeignKey("IDEvento")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

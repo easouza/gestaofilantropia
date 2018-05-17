@@ -22,6 +22,14 @@ namespace gestaoCaridade.Models
         [Display(Name ="Membro")]
         public int IdMembro { get; set; }
 
+        #region Checklist
+
+        public bool ClubeAgendado { get; set; }
+        public bool ConfirmarNumeroMesas { get; set; }
+
+
+        #endregion
+
         [Display(Name = "Responsável")]
         public virtual Membro MembroEvento { get; set; }
     }
