@@ -34,8 +34,50 @@
                 <span asp-validation-for="Data" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdMembro" class="control-label"></label>
-                <select asp-for="IdMembro" class ="form-control" asp-items="ViewBag.IdMembro"></select>
+                <label asp-for="idResponsavelMesa" class="control-label"></label>
+                <select asp-for="idResponsavelMesa" class ="form-control" asp-items="ViewBag.idResponsavelMesa"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="idResponsavelPalco" class="control-label"></label>
+                <select asp-for="idResponsavelPalco" class ="form-control" asp-items="ViewBag.idResponsavelPalco"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="idResponsavelCozinha" class="control-label"></label>
+                <select asp-for="idResponsavelCozinha" class ="form-control" asp-items="ViewBag.idResponsavelCozinha"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="idResponsavelBebidas" class="control-label"></label>
+                <select asp-for="idResponsavelBebidas" class ="form-control" asp-items="ViewBag.idResponsavelBebidas"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="idResponsavelCaixas" class="control-label"></label>
+                <select asp-for="idResponsavelCaixas" class ="form-control" asp-items="ViewBag.idResponsavelCaixas"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="idResponsavelLixo" class="control-label"></label>
+                <select asp-for="idResponsavelLixo" class ="form-control" asp-items="ViewBag.idResponsavelLixo"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="idResponsavelSeguranca" class="control-label"></label>
+                <select asp-for="idResponsavelSeguranca" class ="form-control" asp-items="ViewBag.idResponsavelSeguranca"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="idResponsavelLimpeza" class="control-label"></label>
+                <select asp-for="idResponsavelLimpeza" class ="form-control" asp-items="ViewBag.idResponsavelLimpeza"></select>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="ClubeAgendado" /> @Html.DisplayNameFor(model => model.ClubeAgendado)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="ConfirmarNumeroMesas" /> @Html.DisplayNameFor(model => model.ConfirmarNumeroMesas)
+                    </label>
+                </div>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

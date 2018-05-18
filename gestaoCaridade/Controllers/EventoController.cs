@@ -6,11 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using gestaoCaridade.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace gestaoCaridade.Controllers
 {
-    [Authorize]
     public class EventoController : Controller
     {
         private readonly gestaoCaridadeContext _context;
@@ -23,7 +21,7 @@ namespace gestaoCaridade.Controllers
         // GET: Evento
         public async Task<IActionResult> Index()
         {
-            var gestaoCaridadeContext = _context.Evento.Include(e => e.MembroEvento);
+            var gestaoCaridadeContext = _context.Evento.Include(e => e.ResponsavelBebidas).Include(e => e.ResponsavelCaixas).Include(e => e.ResponsavelCozinha).Include(e => e.ResponsavelLimpeza).Include(e => e.ResponsavelLixo).Include(e => e.ResponsavelMesa).Include(e => e.ResponsavelPalco).Include(e => e.ResponsavelSeguranca);
             return View(await gestaoCaridadeContext.ToListAsync());
         }
 
@@ -36,7 +34,14 @@ namespace gestaoCaridade.Controllers
             }
 
             var evento = await _context.Evento
-                .Include(e => e.MembroEvento)
+                .Include(e => e.ResponsavelBebidas)
+                .Include(e => e.ResponsavelCaixas)
+                .Include(e => e.ResponsavelCozinha)
+                .Include(e => e.ResponsavelLimpeza)
+                .Include(e => e.ResponsavelLixo)
+                .Include(e => e.ResponsavelMesa)
+                .Include(e => e.ResponsavelPalco)
+                .Include(e => e.ResponsavelSeguranca)
                 .SingleOrDefaultAsync(m => m.IdEvento == id);
             if (evento == null)
             {
@@ -49,7 +54,14 @@ namespace gestaoCaridade.Controllers
         // GET: Evento/Create
         public IActionResult Create()
         {
-            ViewData["IdMembro"] = new SelectList(_context.Responsavel, "IdMembro", "Nome");
+            ViewData["idResponsavelBebidas"] = new SelectList(_context.Responsavel, "IdMembro", "Nome");
+            ViewData["idResponsavelCaixas"] = new SelectList(_context.Responsavel, "IdMembro", "Nome");
+            ViewData["idResponsavelCozinha"] = new SelectList(_context.Responsavel, "IdMembro", "Nome");
+            ViewData["idResponsavelLimpeza"] = new SelectList(_context.Responsavel, "IdMembro", "Nome");
+            ViewData["idResponsavelLixo"] = new SelectList(_context.Responsavel, "IdMembro", "Nome");
+            ViewData["idResponsavelMesa"] = new SelectList(_context.Responsavel, "IdMembro", "Nome");
+            ViewData["idResponsavelPalco"] = new SelectList(_context.Responsavel, "IdMembro", "Nome");
+            ViewData["idResponsavelSeguranca"] = new SelectList(_context.Responsavel, "IdMembro", "Nome");
             return View();
         }
 
@@ -58,7 +70,7 @@ namespace gestaoCaridade.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdEvento,Nome,Tipo,Local,Data,IdMembro")] Evento evento)
+        public async Task<IActionResult> Create([Bind("IdEvento,Nome,Tipo,Local,Data,idResponsavelMesa,idResponsavelPalco,idResponsavelCozinha,idResponsavelBebidas,idResponsavelCaixas,idResponsavelLixo,idResponsavelSeguranca,idResponsavelLimpeza,ClubeAgendado,ConfirmarNumeroMesas")] Evento evento)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +78,14 @@ namespace gestaoCaridade.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdMembro"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.IdMembro);
+            ViewData["idResponsavelBebidas"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.idResponsavelBebidas);
+            ViewData["idResponsavelCaixas"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.idResponsavelCaixas);
+            ViewData["idResponsavelCozinha"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.idResponsavelCozinha);
+            ViewData["idResponsavelLimpeza"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.idResponsavelLimpeza);
+            ViewData["idResponsavelLixo"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.idResponsavelLixo);
+            ViewData["idResponsavelMesa"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.idResponsavelMesa);
+            ViewData["idResponsavelPalco"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.idResponsavelPalco);
+            ViewData["idResponsavelSeguranca"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.idResponsavelSeguranca);
             return View(evento);
         }
 
@@ -83,7 +102,14 @@ namespace gestaoCaridade.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdMembro"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.IdMembro);
+            ViewData["idResponsavelBebidas"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.idResponsavelBebidas);
+            ViewData["idResponsavelCaixas"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.idResponsavelCaixas);
+            ViewData["idResponsavelCozinha"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.idResponsavelCozinha);
+            ViewData["idResponsavelLimpeza"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.idResponsavelLimpeza);
+            ViewData["idResponsavelLixo"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.idResponsavelLixo);
+            ViewData["idResponsavelMesa"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.idResponsavelMesa);
+            ViewData["idResponsavelPalco"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.idResponsavelPalco);
+            ViewData["idResponsavelSeguranca"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.idResponsavelSeguranca);
             return View(evento);
         }
 
@@ -92,7 +118,7 @@ namespace gestaoCaridade.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdEvento,Nome,Tipo,Local,Data,IdMembro")] Evento evento)
+        public async Task<IActionResult> Edit(int id, [Bind("IdEvento,Nome,Tipo,Local,Data,idResponsavelMesa,idResponsavelPalco,idResponsavelCozinha,idResponsavelBebidas,idResponsavelCaixas,idResponsavelLixo,idResponsavelSeguranca,idResponsavelLimpeza,ClubeAgendado,ConfirmarNumeroMesas")] Evento evento)
         {
             if (id != evento.IdEvento)
             {
@@ -119,7 +145,14 @@ namespace gestaoCaridade.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdMembro"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.IdMembro);
+            ViewData["idResponsavelBebidas"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.idResponsavelBebidas);
+            ViewData["idResponsavelCaixas"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.idResponsavelCaixas);
+            ViewData["idResponsavelCozinha"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.idResponsavelCozinha);
+            ViewData["idResponsavelLimpeza"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.idResponsavelLimpeza);
+            ViewData["idResponsavelLixo"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.idResponsavelLixo);
+            ViewData["idResponsavelMesa"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.idResponsavelMesa);
+            ViewData["idResponsavelPalco"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.idResponsavelPalco);
+            ViewData["idResponsavelSeguranca"] = new SelectList(_context.Responsavel, "IdMembro", "Nome", evento.idResponsavelSeguranca);
             return View(evento);
         }
 
@@ -132,7 +165,14 @@ namespace gestaoCaridade.Controllers
             }
 
             var evento = await _context.Evento
-                .Include(e => e.MembroEvento)
+                .Include(e => e.ResponsavelBebidas)
+                .Include(e => e.ResponsavelCaixas)
+                .Include(e => e.ResponsavelCozinha)
+                .Include(e => e.ResponsavelLimpeza)
+                .Include(e => e.ResponsavelLixo)
+                .Include(e => e.ResponsavelMesa)
+                .Include(e => e.ResponsavelPalco)
+                .Include(e => e.ResponsavelSeguranca)
                 .SingleOrDefaultAsync(m => m.IdEvento == id);
             if (evento == null)
             {

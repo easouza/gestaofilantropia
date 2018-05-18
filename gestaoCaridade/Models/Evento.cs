@@ -18,9 +18,31 @@ namespace gestaoCaridade.Models
         [Required]
         [DataType(DataType.Date)]
         public DateTime Data { get; set; }
-        [ForeignKey("MembroEvento")]
-        [Display(Name ="Membro")]
-        public int IdMembro { get; set; }
+        [ForeignKey("ResponsavelMesa")]
+        public int idResponsavelMesa { get; set; }
+        [ForeignKey("ResponsavelPalco")]
+        public int idResponsavelPalco { get; set; }
+        [ForeignKey("ResponsavelCozinha")]
+        public int idResponsavelCozinha { get; set; }
+        [ForeignKey("ResponsavelBebidas")]
+        public int idResponsavelBebidas { get; set; }
+        [ForeignKey("ResponsavelCaixas")]
+        public int idResponsavelCaixas { get; set; }
+        [ForeignKey("ResponsavelLixo")]
+        public int idResponsavelLixo { get; set; }
+        [ForeignKey("ResponsavelSeguranca")]
+        public int idResponsavelSeguranca { get; set; }
+        [ForeignKey("ResponsavelLimpeza")]
+        public int idResponsavelLimpeza { get; set; }
+
+        public virtual Membro ResponsavelMesa { get; set; }
+        public virtual Membro ResponsavelPalco { get; set; }
+        public virtual Membro ResponsavelCozinha { get; set; }
+        public virtual Membro ResponsavelBebidas { get; set; }
+        public virtual Membro ResponsavelCaixas { get; set; }
+        public virtual Membro ResponsavelLixo { get; set; }
+        public virtual Membro ResponsavelSeguranca { get; set; }
+        public virtual Membro ResponsavelLimpeza { get; set; }
 
         #region Checklist
 
@@ -29,8 +51,5 @@ namespace gestaoCaridade.Models
 
 
         #endregion
-
-        [Display(Name = "Responsável")]
-        public virtual Membro MembroEvento { get; set; }
     }
 }

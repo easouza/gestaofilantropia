@@ -11,9 +11,10 @@ using System;
 namespace gestaoCaridade.Migrations
 {
     [DbContext(typeof(gestaoCaridadeContext))]
-    partial class gestaoCaridadeContextModelSnapshot : ModelSnapshot
+    [Migration("20180518204544_novomembro")]
+    partial class novomembro
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
