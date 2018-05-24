@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using gestaoCaridade.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace gestaoCaridade.Controllers
 {
+    [Authorize]
     public class EventoController : Controller
     {
         private readonly gestaoCaridadeContext _context;
@@ -70,7 +72,7 @@ namespace gestaoCaridade.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdEvento,Nome,Tipo,Local,Data,idResponsavelMesa,idResponsavelPalco,idResponsavelCozinha,idResponsavelBebidas,idResponsavelCaixas,idResponsavelLixo,idResponsavelSeguranca,idResponsavelLimpeza,ClubeAgendado,ConfirmarNumeroMesas")] Evento evento)
+        public async Task<IActionResult> Create([Bind("IdEvento,Nome,Tipo,Local,Data,idResponsavelMesa,idResponsavelPalco,idResponsavelCozinha,idResponsavelBebidas,idResponsavelCaixas,idResponsavelLixo,idResponsavelSeguranca,idResponsavelLimpeza,ClubeAgendado,ConfirmarNumeroMesas,VerificaCozinha,ConfirmarFuncionarios,ConfeccionarConvites,FazerCartaPedidos,EntregarConvites,FazerCartaAgradecimento,FazerCartaBetheisDemolays,ComprarCartela,NumerarCartela,CarimbarCartela,ContratarSom,ContratarSegurancas,ProvidenciarRoleta,SepararFichas,LevarTroco,ProvidenciarCaixaDinheiro,ProvidenciarVasilha,ProvidenciarPratinhos,ProvidenciarPratosGarfos,ProvidenciarCoposColheres,ProvidenciarLapis,ProvidenciarGuardanapos,ProvidenciarPanodePrato,ProvidenciarPerfex,ProvidenciarFosforo,ProvidenciarBuchinha,ProvidenciarPapelHigienico,ProvidenciarToalhaMesa,ProvidenciarSacoLixo,ProvidenciarCestaBebida,ProvidenciarBandejas,ProvidenciarCrachas,ProvidenciarBloquinho,ProvidenciarBebidas,ProvidenciarComidas,FazerCardapio,FazerAgradecimento,FazerListaBrindes,ComparPlasticoEmbalar,FazerValeTicket,FazerEscala,MarcarHorarioChegada")] Evento evento)
         {
             if (ModelState.IsValid)
             {
@@ -118,7 +120,7 @@ namespace gestaoCaridade.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdEvento,Nome,Tipo,Local,Data,idResponsavelMesa,idResponsavelPalco,idResponsavelCozinha,idResponsavelBebidas,idResponsavelCaixas,idResponsavelLixo,idResponsavelSeguranca,idResponsavelLimpeza,ClubeAgendado,ConfirmarNumeroMesas")] Evento evento)
+        public async Task<IActionResult> Edit(int id, [Bind("IdEvento,Nome,Tipo,Local,Data,idResponsavelMesa,idResponsavelPalco,idResponsavelCozinha,idResponsavelBebidas,idResponsavelCaixas,idResponsavelLixo,idResponsavelSeguranca,idResponsavelLimpeza,ClubeAgendado,ConfirmarNumeroMesas,VerificaCozinha,ConfirmarFuncionarios,ConfeccionarConvites,FazerCartaPedidos,EntregarConvites,FazerCartaAgradecimento,FazerCartaBetheisDemolays,ComprarCartela,NumerarCartela,CarimbarCartela,ContratarSom,ContratarSegurancas,ProvidenciarRoleta,SepararFichas,LevarTroco,ProvidenciarCaixaDinheiro,ProvidenciarVasilha,ProvidenciarPratinhos,ProvidenciarPratosGarfos,ProvidenciarCoposColheres,ProvidenciarLapis,ProvidenciarGuardanapos,ProvidenciarPanodePrato,ProvidenciarPerfex,ProvidenciarFosforo,ProvidenciarBuchinha,ProvidenciarPapelHigienico,ProvidenciarToalhaMesa,ProvidenciarSacoLixo,ProvidenciarCestaBebida,ProvidenciarBandejas,ProvidenciarCrachas,ProvidenciarBloquinho,ProvidenciarBebidas,ProvidenciarComidas,FazerCardapio,FazerAgradecimento,FazerListaBrindes,ComparPlasticoEmbalar,FazerValeTicket,FazerEscala,MarcarHorarioChegada")] Evento evento)
         {
             if (id != evento.IdEvento)
             {

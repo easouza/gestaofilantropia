@@ -12,7 +12,7 @@ namespace gestaoCaridade.Models
         [Key]
         public int IdIngresso { get; set; }
         [Required]
-        public double Valor { get; set; }
+        public double Quantidade { get; set; }
         [DataType(DataType.Date)]
         [Display(Name = "Data da Venda")]
         public DateTime DataVenda { get; set; }

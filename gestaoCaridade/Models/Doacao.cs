@@ -16,7 +16,7 @@ namespace gestaoCaridade.Models
         [Required]
         [DataType(DataType.Date)]
         public DateTime Data { get; set; }
-        public string Tipo { get; set; }
+        public string Objeto { get; set; }
         public string Origem { get; set; }
         [ForeignKey("DoadorSelecionado")]
         [Display(Name ="Doador")]

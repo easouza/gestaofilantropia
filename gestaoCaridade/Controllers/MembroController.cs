@@ -6,16 +6,21 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using gestaoCaridade.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace gestaoCaridade.Controllers
 {
+    [Authorize]
     public class MembroController : Controller
     {
         private readonly gestaoCaridadeContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public MembroController(gestaoCaridadeContext context)
+        public MembroController(gestaoCaridadeContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Membro
@@ -57,9 +62,13 @@ namespace gestaoCaridade.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(membro);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var user = new IdentityUser() { UserName = membro.UserName };
+                var result = await _userManager.CreateAsync(user, membro.Password);
+                if (result.Succeeded)
+                {
+                    _context.Add(membro);
+                    await _context.SaveChangesAsync();
+                }
             }
             return View(membro);
         }

@@ -25,36 +25,6 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Data)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ClubeAgendado)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ConfirmarNumeroMesas)
-                </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ResponsavelBebidas)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ResponsavelCaixas)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ResponsavelCozinha)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ResponsavelLimpeza)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ResponsavelLixo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ResponsavelMesa)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ResponsavelPalco)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ResponsavelSeguranca)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -72,36 +42,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Data)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClubeAgendado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ConfirmarNumeroMesas)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ResponsavelBebidas.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ResponsavelCaixas.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ResponsavelCozinha.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ResponsavelLimpeza.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ResponsavelLixo.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ResponsavelMesa.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ResponsavelPalco.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ResponsavelSeguranca.Nome)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdEvento">Edit</a> |

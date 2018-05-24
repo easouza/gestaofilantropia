@@ -60,7 +60,7 @@ namespace gestaoCaridade.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdDoacao,Valor,Data,Tipo,Origem,IdDoador,IdEvento")] Doacao doacao)
+        public async Task<IActionResult> Create([Bind("IdDoacao,Valor,Data,Objeto,Origem,IdDoador,IdEvento")] Doacao doacao)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +96,7 @@ namespace gestaoCaridade.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdDoacao,Valor,Data,Tipo,Origem,IdDoador,IdEvento")] Doacao doacao)
+        public async Task<IActionResult> Edit(int id, [Bind("IdDoacao,Valor,Data,Objeto,Origem,IdDoador,IdEvento")] Doacao doacao)
         {
             if (id != doacao.IdDoacao)
             {

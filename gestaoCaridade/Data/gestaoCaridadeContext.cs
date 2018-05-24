@@ -16,6 +16,21 @@ namespace gestaoCaridade.Models
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            var cascadeFKs = builder.Model.GetEntityTypes()
+                .SelectMany(t => t.GetForeignKeys())
+                .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
+
+            foreach (var fk in cascadeFKs)
+                fk.DeleteBehavior = DeleteBehavior.Restrict;
+
+
+
+        }
+
         public DbSet<gestaoCaridade.Models.Evento> Evento { get; set; }
 
         public DbSet<gestaoCaridade.Models.Artesao> Artesao { get; set; }

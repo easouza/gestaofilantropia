@@ -147,9 +147,9 @@ namespace gestaoCaridade.Migrations
 
                     b.Property<int>("IdEvento");
 
-                    b.Property<string>("Origem");
+                    b.Property<string>("Objeto");
 
-                    b.Property<string>("Tipo");
+                    b.Property<string>("Origem");
 
                     b.Property<double>("Valor");
 
@@ -204,24 +204,136 @@ namespace gestaoCaridade.Migrations
                     b.Property<int>("IdEvento")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("CarimbarCartela");
+
                     b.Property<bool>("ClubeAgendado");
+
+                    b.Property<bool>("ComparPlasticoEmbalar");
+
+                    b.Property<bool>("ComprarCartela");
+
+                    b.Property<bool>("ConfeccionarConvites");
+
+                    b.Property<bool>("ConfirmarFuncionarios");
 
                     b.Property<bool>("ConfirmarNumeroMesas");
 
+                    b.Property<bool>("ContratarSegurancas");
+
+                    b.Property<bool>("ContratarSom");
+
                     b.Property<DateTime>("Data");
 
-                    b.Property<int>("IdMembro");
+                    b.Property<bool>("EntregarConvites");
+
+                    b.Property<bool>("FazerAgradecimento");
+
+                    b.Property<bool>("FazerCardapio");
+
+                    b.Property<bool>("FazerCartaAgradecimento");
+
+                    b.Property<bool>("FazerCartaBetheisDemolays");
+
+                    b.Property<bool>("FazerCartaPedidos");
+
+                    b.Property<bool>("FazerEscala");
+
+                    b.Property<bool>("FazerListaBrindes");
+
+                    b.Property<bool>("FazerValeTicket");
+
+                    b.Property<bool>("LevarTroco");
 
                     b.Property<string>("Local");
+
+                    b.Property<bool>("MarcarHorarioChegada");
 
                     b.Property<string>("Nome")
                         .IsRequired();
 
+                    b.Property<bool>("NumerarCartela");
+
+                    b.Property<bool>("ProvidenciarBandejas");
+
+                    b.Property<bool>("ProvidenciarBebidas");
+
+                    b.Property<bool>("ProvidenciarBloquinho");
+
+                    b.Property<bool>("ProvidenciarBuchinha");
+
+                    b.Property<bool>("ProvidenciarCaixaDinheiro");
+
+                    b.Property<bool>("ProvidenciarCestaBebida");
+
+                    b.Property<bool>("ProvidenciarComidas");
+
+                    b.Property<bool>("ProvidenciarCoposColheres");
+
+                    b.Property<bool>("ProvidenciarCrachas");
+
+                    b.Property<bool>("ProvidenciarFosforo");
+
+                    b.Property<bool>("ProvidenciarGuardanapos");
+
+                    b.Property<bool>("ProvidenciarLapis");
+
+                    b.Property<bool>("ProvidenciarPanodePrato");
+
+                    b.Property<bool>("ProvidenciarPapelHigienico");
+
+                    b.Property<bool>("ProvidenciarPerfex");
+
+                    b.Property<bool>("ProvidenciarPratinhos");
+
+                    b.Property<bool>("ProvidenciarPratosGarfos");
+
+                    b.Property<bool>("ProvidenciarRoleta");
+
+                    b.Property<bool>("ProvidenciarSacoLixo");
+
+                    b.Property<bool>("ProvidenciarToalhaMesa");
+
+                    b.Property<bool>("ProvidenciarVasilha");
+
+                    b.Property<bool>("SepararFichas");
+
                     b.Property<string>("Tipo");
+
+                    b.Property<bool>("VerificaCozinha");
+
+                    b.Property<int>("idResponsavelBebidas");
+
+                    b.Property<int>("idResponsavelCaixas");
+
+                    b.Property<int>("idResponsavelCozinha");
+
+                    b.Property<int>("idResponsavelLimpeza");
+
+                    b.Property<int>("idResponsavelLixo");
+
+                    b.Property<int>("idResponsavelMesa");
+
+                    b.Property<int>("idResponsavelPalco");
+
+                    b.Property<int>("idResponsavelSeguranca");
 
                     b.HasKey("IdEvento");
 
-                    b.HasIndex("IdMembro");
+                    b.HasIndex("idResponsavelBebidas");
+
+                    b.HasIndex("idResponsavelCaixas");
+
+                    b.HasIndex("idResponsavelCozinha");
+
+                    b.HasIndex("idResponsavelLimpeza");
+
+                    b.HasIndex("idResponsavelLixo");
+
+                    b.HasIndex("idResponsavelMesa");
+
+                    b.HasIndex("idResponsavelPalco");
+
+                    b.HasIndex("idResponsavelSeguranca");
 
                     b.ToTable("Evento");
                 });
@@ -255,7 +367,7 @@ namespace gestaoCaridade.Migrations
 
                     b.Property<int>("IdVendedor");
 
-                    b.Property<double>("Valor");
+                    b.Property<double>("Quantidade");
 
                     b.HasKey("IdIngresso");
 
@@ -337,13 +449,13 @@ namespace gestaoCaridade.Migrations
 
                     b.Property<string>("DatNascFilho1");
 
-                    b.Property<string>("DataCasamento");
+                    b.Property<DateTime>("DataCasamento");
 
                     b.Property<DateTime>("DataEntrada");
 
                     b.Property<DateTime>("DataNascimento");
 
-                    b.Property<string>("DataSaida");
+                    b.Property<DateTime>("DataSaida");
 
                     b.Property<string>("DocIdentidade");
 
@@ -618,12 +730,12 @@ namespace gestaoCaridade.Migrations
                     b.HasOne("gestaoCaridade.Models.Artesao", "ArtesaoSelecionado")
                         .WithMany()
                         .HasForeignKey("IdArtesao")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("gestaoCaridade.Models.Evento", "EventoVinculado")
                         .WithMany()
                         .HasForeignKey("IdEvento")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("gestaoCaridade.Models.Caridade", b =>
@@ -631,12 +743,12 @@ namespace gestaoCaridade.Migrations
                     b.HasOne("gestaoCaridade.Models.Beneficiado", "BeneficiadoSelecionado")
                         .WithMany()
                         .HasForeignKey("IdBeneficiado")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("gestaoCaridade.Models.Item", "ItemSelecionado")
                         .WithMany()
                         .HasForeignKey("IdItem")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("gestaoCaridade.Models.ChecklistEvento", b =>
@@ -644,7 +756,7 @@ namespace gestaoCaridade.Migrations
                     b.HasOne("gestaoCaridade.Models.Evento", "EventoVinculado")
                         .WithMany()
                         .HasForeignKey("IDEvento")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("gestaoCaridade.Models.Doacao", b =>
@@ -652,20 +764,55 @@ namespace gestaoCaridade.Migrations
                     b.HasOne("gestaoCaridade.Models.Doador", "DoadorSelecionado")
                         .WithMany()
                         .HasForeignKey("IdDoador")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("gestaoCaridade.Models.Evento", "EventoSelecionado")
                         .WithMany()
                         .HasForeignKey("IdEvento")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("gestaoCaridade.Models.Evento", b =>
                 {
-                    b.HasOne("gestaoCaridade.Models.Membro", "MembroEvento")
+                    b.HasOne("gestaoCaridade.Models.Membro", "ResponsavelBebidas")
                         .WithMany()
-                        .HasForeignKey("IdMembro")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("idResponsavelBebidas")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("gestaoCaridade.Models.Membro", "ResponsavelCaixas")
+                        .WithMany()
+                        .HasForeignKey("idResponsavelCaixas")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("gestaoCaridade.Models.Membro", "ResponsavelCozinha")
+                        .WithMany()
+                        .HasForeignKey("idResponsavelCozinha")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("gestaoCaridade.Models.Membro", "ResponsavelLimpeza")
+                        .WithMany()
+                        .HasForeignKey("idResponsavelLimpeza")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("gestaoCaridade.Models.Membro", "ResponsavelLixo")
+                        .WithMany()
+                        .HasForeignKey("idResponsavelLixo")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("gestaoCaridade.Models.Membro", "ResponsavelMesa")
+                        .WithMany()
+                        .HasForeignKey("idResponsavelMesa")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("gestaoCaridade.Models.Membro", "ResponsavelPalco")
+                        .WithMany()
+                        .HasForeignKey("idResponsavelPalco")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("gestaoCaridade.Models.Membro", "ResponsavelSeguranca")
+                        .WithMany()
+                        .HasForeignKey("idResponsavelSeguranca")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("gestaoCaridade.Models.EventoCliente", b =>
@@ -673,12 +820,12 @@ namespace gestaoCaridade.Migrations
                     b.HasOne("gestaoCaridade.Models.Cliente", "ClienteSelecionado")
                         .WithMany()
                         .HasForeignKey("IdCliente")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("gestaoCaridade.Models.Evento", "EventoSelecionado")
                         .WithMany()
                         .HasForeignKey("IdEvento")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("gestaoCaridade.Models.Ingresso", b =>
@@ -686,12 +833,12 @@ namespace gestaoCaridade.Migrations
                     b.HasOne("gestaoCaridade.Models.Evento", "EventoIngresso")
                         .WithMany()
                         .HasForeignKey("IdEvento")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("gestaoCaridade.Models.Vendedor", "VendedorResponsavel")
                         .WithMany()
                         .HasForeignKey("IdVendedor")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("gestaoCaridade.Models.Material", b =>
@@ -699,7 +846,7 @@ namespace gestaoCaridade.Migrations
                     b.HasOne("gestaoCaridade.Models.Evento", "EventoSelecionado")
                         .WithMany()
                         .HasForeignKey("IdEvento")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -707,7 +854,7 @@ namespace gestaoCaridade.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -715,7 +862,7 @@ namespace gestaoCaridade.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -723,7 +870,7 @@ namespace gestaoCaridade.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -731,12 +878,12 @@ namespace gestaoCaridade.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -744,7 +891,7 @@ namespace gestaoCaridade.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }
