@@ -21,9 +21,19 @@ namespace gestaoCaridade.Controllers
         }
 
         // GET: Evento
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string Nome, string Tipo)
         {
             var gestaoCaridadeContext = _context.Evento.Include(e => e.ResponsavelBebidas).Include(e => e.ResponsavelCaixas).Include(e => e.ResponsavelCozinha).Include(e => e.ResponsavelLimpeza).Include(e => e.ResponsavelLixo).Include(e => e.ResponsavelMesa).Include(e => e.ResponsavelPalco).Include(e => e.ResponsavelSeguranca);
+            if (!String.IsNullOrEmpty(Nome))
+            {
+                gestaoCaridadeContext = _context.Evento.Where(s => s.Nome.Contains(Nome)).Include(e => e.ResponsavelBebidas).Include(e => e.ResponsavelCaixas).Include(e => e.ResponsavelCozinha).Include(e => e.ResponsavelLimpeza).Include(e => e.ResponsavelLixo).Include(e => e.ResponsavelMesa).Include(e => e.ResponsavelPalco).Include(e => e.ResponsavelSeguranca);
+            }
+
+            if (!String.IsNullOrEmpty(Tipo))
+            {
+                gestaoCaridadeContext = gestaoCaridadeContext.Where(s => s.Tipo.Contains(Tipo)).Include(e => e.ResponsavelBebidas).Include(e => e.ResponsavelCaixas).Include(e => e.ResponsavelCozinha).Include(e => e.ResponsavelLimpeza).Include(e => e.ResponsavelLixo).Include(e => e.ResponsavelMesa).Include(e => e.ResponsavelPalco).Include(e => e.ResponsavelSeguranca);
+            }
+
             return View(await gestaoCaridadeContext.ToListAsync());
         }
 

@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Membro</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Adicionar</a>
 </p>
 <table class="table">
     <thead>
@@ -68,9 +68,9 @@
                 @Html.DisplayFor(modelItem => item.CPF)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.IdMembro">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdMembro">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdMembro">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.IdMembro">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.IdMembro">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdMembro">Excluir</a>
             </td>
         </tr>
 }
