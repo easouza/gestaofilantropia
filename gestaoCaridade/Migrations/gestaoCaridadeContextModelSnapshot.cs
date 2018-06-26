@@ -47,9 +47,13 @@ namespace gestaoCaridade.Migrations
                     b.Property<int>("IdArtesaoEvento")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<float>("ComissaoArtesao");
+
                     b.Property<int>("IdArtesao");
 
                     b.Property<int>("IdEvento");
+
+                    b.Property<float>("ValorVendido");
 
                     b.HasKey("IdArtesaoEvento");
 

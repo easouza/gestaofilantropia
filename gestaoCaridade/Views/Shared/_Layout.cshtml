@@ -8,7 +8,7 @@
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gestão de Caridade</title>
+    <title>Gestão de Eventos</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -31,7 +31,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Gestão de Caridade</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Gestão de Eventos</a>
             </div>
             <div class="navbar-collapse collapse">
                 @if (SignInManager.IsSignedIn(User))
@@ -53,6 +53,7 @@
                             <li><a asp-area="" asp-controller="Ingresso" asp-action="">Ingresso</a></li>
                             <li><a asp-area="" asp-controller="Doador" asp-action="">Doador</a></li>
                             <li><a asp-area="" asp-controller="Doacao" asp-action="">Doação</a></li>
+                            <li><a asp-area="" asp-controller="ArtesaoEvento" asp-action="">Vincular Artesão</a></li>
                         </ul>
                     </li>
                     <li role="presentation" class="dropdown">
@@ -84,7 +85,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2018 - Gestão de Caridade - PUC Minas</p>
+            <p>&copy; 2018 - Sistema de Gestão de Eventos e de Caridade</p>
         </footer>
     </div>
 

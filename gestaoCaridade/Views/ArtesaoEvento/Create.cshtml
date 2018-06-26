@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h2>Adicionar Artesão a um evento</h2>
+<h2>Adicionar artesão ao evento</h2>
 
 <h4>Artesão</h4>
 <hr />
@@ -13,12 +13,22 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="ValorVendido" class="control-label"></label>
+                <input asp-for="ValorVendido" class="form-control" />
+                <span asp-validation-for="ValorVendido" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ComissaoArtesao" class="control-label"></label>
+                <input asp-for="ComissaoArtesao" class="form-control" />
+                <span asp-validation-for="ComissaoArtesao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="IdArtesao" class="control-label"></label>
-                <select asp-for="IdArtesao" class ="form-control" asp-items="ViewBag.IdArtesao"></select>
+                <select asp-for="IdArtesao" class="form-control" asp-items="ViewBag.IdArtesao"></select>
             </div>
             <div class="form-group">
                 <label asp-for="IdEvento" class="control-label"></label>
-                <select asp-for="IdEvento" class ="form-control" asp-items="ViewBag.IdEvento"></select>
+                <select asp-for="IdEvento" class="form-control" asp-items="ViewBag.IdEvento"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Adcionar" class="btn btn-default" />

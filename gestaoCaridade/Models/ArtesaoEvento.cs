@@ -20,6 +20,12 @@ namespace gestaoCaridade.Models
         [Display(Name ="Evento")]
         public int IdEvento { get; set; }
 
+        [Display(Name ="Valor Vendido")]
+        public float ValorVendido { get; set; }
+
+        [Display(Name ="Comissão do Artesão")]
+        public float ComissaoArtesao { get; set; }
+
         [Display(Name = "Artesão")]
         public virtual Artesao ArtesaoSelecionado { get; set; }
         [Display(Name = "Evento")]

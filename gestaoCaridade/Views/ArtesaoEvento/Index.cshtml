@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Listagem de artesãos vinculados a um evento</h2>
+<h2>Lista de artesãos em eventos</h2>
 
 <p>
-    <a asp-action="Create">Adicionar novo vínculo</a>
+    <a asp-action="Create">Adicionar</a>
 </p>
 <table class="table">
     <thead>
@@ -17,6 +17,12 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.EventoVinculado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorVendido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ComissaoArtesao)
             </th>
             <th></th>
         </tr>
@@ -31,8 +37,14 @@
                 @Html.DisplayFor(modelItem => item.EventoVinculado.Nome)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.ValorVendido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ComissaoArtesao)
+            </td>
+            <td>
                 <a asp-action="Edit" asp-route-id="@item.IdArtesaoEvento">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.IdArtesaoEvento">Detailhes</a> |
+                <a asp-action="Details" asp-route-id="@item.IdArtesaoEvento">Detalhes</a> |
                 <a asp-action="Delete" asp-route-id="@item.IdArtesaoEvento">Excluir</a>
             </td>
         </tr>
